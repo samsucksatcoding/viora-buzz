@@ -1,0 +1,443 @@
+:root{
+    --primary-1: #7857ff;
+    --primary-2: #8b69ff;
+    --primary-3: #9d7bff;
+    --primary-4: #ad8eff;
+    --primary-5: #bca0ff;
+    --primary-6: #cbb3ff;
+
+    --surface-1: #121212;
+    --surface-2: #282828;
+    --surface-3: #3f3f3f;
+    --surface-4: #575757;
+    --surface-5: #717171;
+    --surface-6: #8b8b8b;
+
+    --text-1: #ffffff;
+    --text-2: #ffffff;
+    --text-3: #ffffff;
+    --text-4: #ffffff;
+    --text-5: #ffffff;
+    --text-6: #000000;
+}
+
+.styled{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    user-select: none;
+}
+
+aside{
+    flex: 0 0 200px;
+    width: 175px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.styled > div{
+    flex: 0 0 150px;
+    width: 150px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+main{
+    flex: 0 1 800px;
+    max-width: 800px;
+    min-width: 300px;
+    padding: 5px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+fieldset{
+    position: relative;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid;
+    border-radius: 5px;
+    height: 1000px;
+}
+
+body{
+    background-color: var(--surface-1);
+    color: var(--text-1);
+    font-family: "Jersey 20", arial, monospace;
+}
+
+button{
+    background-color: var(--surface-1);
+    color: var(--text-1);
+    border: 0;
+    font-family: "Jersey 20", arial, monospace;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+}
+
+button:hover{
+    background-color: var(--surface-4);
+    cursor: pointer;
+}
+
+nav{
+    background-color: var(--surface-2);
+    border: 0;
+    display: flow-root;
+}
+
+nav > fieldset > .needs-children{
+    margin-top: 30px;
+    list-style-type: none;
+}
+
+nav fieldset .needs-children li{
+    color: var(--text-2);
+    cursor: pointer;
+    margin-left: -20px;
+    transition: color 0.5s ease;
+}
+
+nav fieldset .needs-children li:hover{
+    color: var(--primary-2);
+}
+
+.oneliner{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--surface-3);
+    padding: 5px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.oneliner .buttons{
+    display: flex;
+    gap: 3px;
+}
+
+.oneliner button{
+    width: 20px;
+    height: 20px;
+    border-radius: 2.5px;
+    cursor: pointer;
+}
+
+main > fieldset,
+.sidebar > fieldset{
+    background-color: var(--surface-2);
+}
+
+.inline-img{
+    width: 300px;
+    float: right;
+    margin: 0 0 10px 10px;
+}
+
+p{
+    line-height: 1.5;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 250px;
+    margin: 20px auto;
+}
+
+input[type=password],
+button[type=submit],
+input[type=reset]{
+    border: dashed 2px var(--primary-3);
+    padding: 5px;
+    border-radius: 10px;
+    background-color: var(--surface-3);
+    color: var(--text-3);
+    font-family: "Jersey 20", arial, monospace;
+}
+
+.h-dotted{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    color: var(--text-1);
+    margin-block: 32px;
+}
+
+.h-dotted::before,
+.h-dotted::after{
+    content: "";
+    flex-grow: 1;
+    height: 1px;
+    border-bottom: 1px dotted currentColor;
+    opacity: 0.5;
+}
+
+.status, .feeling, .playing, .watching, .reading, .listening {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.statustitle{
+    flex: 0 0 auto;
+    border: 2px solid;
+    background-color: var(--surface-1);
+    border-radius: 3px;
+    padding: 2px 4px;
+}
+
+.statusdesc-song{
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 2px solid;
+    background-color: var(--surface-3);
+    border-radius: 3px;
+    padding: 2px 4px;
+    font-size: clamp(10px, 1.5vw, 14px);
+
+}
+.statusdesc{
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: 2px solid;
+    background-color: var(--surface-3);
+    border-radius: 3px;
+    padding: 2px 4px;
+    font-size: clamp(10px, 1.5vw, 14px);
+}
+
+.playing .statusdesc{
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+.mytime{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.mytime > span.statustitle{
+    text-align: left;
+    padding-right: 4px;
+}
+
+.mytime > span.statusdesc{
+    text-align: right;
+    padding-left: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar {
+    float: right;
+    width: 175px;
+    max-width: 175px;
+    min-width: 175px;
+    height: 1000px;
+    box-sizing: border-box;
+    padding: 5px;
+    font-size: 0;
+}
+
+.sidebar > * {
+    font-size: 1rem;
+}
+
+.sidebar .status, .sidebar .feeling, .sidebar .playing, .sidebar .watching, .sidebar .reading, .sidebar .listening {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.sidebar .statusdesc {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar .playing .statusdesc {
+    flex-shrink: 0;
+    font-size: 12px;
+}
+
+.sidebar .mytime {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.sidebar .mytime > span.statustitle,
+.sidebar .mytime > span.statusdesc {
+    font-size: clamp(8px, 0.8rem, 12px);
+}
+
+.sidebar > div,
+.sidebar > div span,
+.sidebar > div p{
+    box-sizing: border-box;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar .status,
+.sidebar .feeling,
+.sidebar .playing,
+.sidebar .watching,
+.sidebar .reading,
+.sidebar .listening,
+.sidebar .mytime{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.sidebar .statustitle,
+.sidebar .statusdesc{
+    font-size: clamp(8px, 1.5vw, 12px);
+    flex-shrink: 1;
+}
+
+.sidebar .playing .statusdesc{
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.sidebar .mytime{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.sidebar .mytime > span.statustitle{
+    text-align: left;
+}
+
+.sidebar .mytime > span.statusdesc{
+    text-align: right;
+}
+
+.twosect{
+    display: flex;
+    gap: 20px;
+}
+
+.twosect-child-left, .twosect-child-right{
+    flex: 1;
+    text-align: center;
+    border: 2px solid;
+}
+
+.highlited{
+    background-color: var(--text-1);
+    color: var(--surface-2);
+    margin-top: 0;
+}
+.inline-img2 {
+    float: left;
+    margin: 0 1em 1em 0;
+    width: 100px;
+    height: auto;
+}
+
+.image-bullets ul {
+    margin: 0;
+    padding: 0;
+    list-style: disc;
+}
+
+main {
+    flex: 0 1 800px;
+    max-width: 800px;
+    min-width: 300px;
+    padding: 5px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: block;
+}
+
+.tabcont {
+    display: flex;
+    width: 100%;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 0;
+    cursor: pointer;
+    background-color: var(--surface-3);
+    border: 1px solid var(--surface-4);
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    transition: 0.2s;
+}
+
+.tab:hover {
+    background-color: var(--surface-4);
+}
+
+.tab.active {
+    background-color: var(--surface-2);
+    color: var(--primary-3);
+    font-weight: bold;
+}
+
+.tabcontent {
+    display: none;
+    padding: 10px;
+    border: 1px solid var(--surface-4);
+    border-radius: 0 5px 5px 5px;
+    background-color: var(--surface-2);
+}
+
+.rss-item {
+    background-color: var(--surface-3);
+    border: 1px solid var(--surface-4);
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.rss-item a {
+    color: var(--primary-2);
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.rss-item a:hover {
+    color: var(--primary-3);
+}
+
+.rss-item p {
+    margin-top: 4px;
+    color: var(--text-2);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+a {
+    color: var(--primary-6);
+}
