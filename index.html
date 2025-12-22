@@ -1,180 +1,27 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<head>
-    <title>Viora</title>
-    <link rel="icon" href="/images/me.png">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+20&display=swap" rel="stylesheet">
-    <script defer src="./scripts.js"></script>
-    <script defer src="./aidetector.js"></script>
+    <head>
+        <title>Sam</title>
+        <link rel="stylesheet" href="style.css">
+        <script defer src="./scripts.js"></script>
     </head>
     <body>
-    <div class="excluded" style="text-align: center;">
-        <h1>VIORA (VIORA.BUZZ)</h1>
-        <h1>I know that the images are broken, the artist I had hired to do the artwork for my website was a scammer.</h1>
-    </div>
-    <div class="styled">
-        <aside>
-            <nav>
-                <fieldset>
-                    <div class="inner-wrapper">
-                        <div class="oneliner">
-                            <span class="title">nav.sh</span>
-                            <span class="buttons"><button>-</button> <button>□</button> <button>x</button></span>
-                        </div>
-                        <hr>
-                    </div>
-                    <ul class="needs-children">
-                        <li onclick="window.location.href='./index.html'">Home</li>
-                        <li onclick="window.location.href='./vault.html'">Vault</li>
-                        <li onclick="window.location.href='./me.html'" id="me-parent">Me</li>
-                        <li onclick="window.location.href='./site.html'" id="site-parent">Site</li>
-                        <li onclick="window.location.href='./feed.html'">Feed</li>
-                        <li onclick="window.location.href='./links.html'" id="links-parent">Links</li>
-                        <li onclick="window.location.href='./shrines.html'">Shrines</li>
-                        <li onclick="window.location.href='./guestbook.html'">Guestbook</li>
-                    </ul>
-                    <ul id="me-children">
-                        <li onclick="window.location.href='./me.html#about'">About</li>
-                        <li onclick="window.location.href='./me.html#mylinks'">My Links</li>
-                        <li onclick="window.location.href='./me.html#graphics'">Graphics</li>
-                        <li onclick="window.location.href='./me.html#quizresults'">Quiz Results</li>
-                    </ul>
-                    <ul id="site-children">
-                        <li onclick="window.location.href='./site.html#about'">About</li>
-                        <li onclick="window.location.href='./site.html#changelog'">Changelog</li>
-                    </ul>
-                    <ul id="links-children">
-                        <li onclick="window.location.href='./links.html#outbound'">Outbound</li>
-                        <li onclick="window.location.href='./links.html#resources'">Resources</li>
-                    </ul>
-                </fieldset>
-            </nav>
-        </aside>
-        <main>
-            <fieldset>
-                <div class="oneliner">
-                    <span class="title">main.sh</span>
-                    <span class="buttons"><button>-</button> <button>□</button> <button>x</button></span>
-                </div>
-                <hr>
-                <hr>
-                <h1 style="text-align: center;">UNDER MAJOR CONSTRUCTION</h1>
-                <img src="./images/me-dazed.png" alt="me-dazed" class="inline-img">
-                <p>
-                    I'm a front-end full stack web developer, this is just kind of my constant experiment, as I want to make more. 
-                    This page gets larger and larger, or it gets redone, because I can't decide on a theme. 
-                    I also have a blog if you wanna read a lot of rants. I also just like to do random stuff on this website to
-                    make it fun for people :3<br><br>
-                    This website is best viewed on desktop. There are a ton of interactive elements, don't be afraid to click on 
-                    random things, this website was made for you to explore :3<br><br>
-                    I'm going to be adding some interactive and fun hidden pages around the site that have an obscure way to get
-                    to them, if you want to take a look around the website, look at the <a href="./sitemap.html">sitemap</a>. :3
-                </p>
-                <div class="container">
-                    <div class="twosect">
-                        <div class="twosect-child-left">
-                            <h1 class="highlited">TODO</h1>
-                            <div class="image-bullets">
-                                <img src="./images/me-knife.png" alt="me-dazed" class="inline-img2">
-                                <ul>
-                                    <li>Add AI search protection.</li>
-                                    <li>Prevent spam reloading & ban from APIs.</li>
-                                    <li>Create fun tools.</li>
-                                    <li>Add some fun quizes.</li>
-                                    <li>Create contact page.</li>
-                                </ul>
-                            </div>
-                        </div>
+        <div class="console">
+            <p class="cli">sam@cloud:~$ rockstar ;3.md</p>
 
-                        <div class="twosect-child-right">
-                            <h1 class="highlited">CHANGELOG</h1>
-                            <ul>
-                                <li>12/1/25<br>Published the website.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </main>
-        <div class="sidebar">
-            <fieldset>
-                <hr>
-                <hr>
-                <h3 class="h-dotted">STATUS</h3>
-                <div class="status">
-                    <span class="statustitle">Status</span>
-                    <span class="statusdesc">loading...</span>
-                </div>
-                <div class="feeling">
-                    <span class="statustitle">feeling</span>
-                    <span class="statusdesc">loading...</span>
-                </div>
-                <div class="playing">
-                    <span class="statustitle">playing</span>
-                    <span class="statusdesc">loading...</span>
-                </div>
-                <div class="watching">
-                    <span class="statustitle">watching</span>
-                    <span class="statusdesc">loading...</span>
-                </div>
-                <div class="reading">
-                    <span class="statustitle">reading</span>
-                    <span class="statusdesc">loading...</span>
-                </div>
-                <div class="listening">
-                    <span class="statustitle">listening</span>
-                    <span class="statusdesc-song">loading...</span>
-                </div>
-                <h3 class="h-dotted">CLOCK</h3>
-                <div class="mytime">
-                    <span class="statustitle">My Time</span>
-                    <span class="statusdesc">Loading...</span>
-                    <span class="statustitle">Your Time</span>
-                    <span class="statusdesc">Loading...</span>
-                </div>
-                <h3 class="h-dotted">POLL</h3>
-                <p>Loading...</p>
-                <h3 class="h-dotted">GUESTBOOK</h3>
-                <button onclick="window.location.href='./guestbook.html'">Sign My Guestbook</button>
-                <h3 class="h-dotted">ADS</h3>
-                <p>But not the greedy kind.</p>
-                <div class="oneliner">
-                    <span class="title">sidebar.sh</span>
-                    <span class="buttons"><button>-</button> <button>□</button> <button>x</button></span>
-                </div>
-                <iframe width="180" height="180" style="border:none" src="https://dimden.neocities.org/navlink/" name="neolink"></iframe>
-            </fieldset>
+            <div id="history">
+                <p class="cli" id="typewriter-1"></p>
+                <p class="cli" id="typewriter-2"></p>
+            </div>
+        
+            <div class="input-line">
+                <p class="cli">
+                    &nbsp;&nbsp;&nbsp;sam@cloud:~$
+                    <input type="text" class="cli-input" autofocus spellcheck="false" placeholder="...">
+                </p>
+            </div>
+
+            <p class="cli" style="opacity: 0.5; font-size: 0.8em;">&nbsp;&nbsp;&nbsp;type "help" for commands</p>
         </div>
-    </div>
-    <footer style="text-align: center;">
-        <p>
-            <img src="https://ghostk.id/i/88x31.gif" width="88" height="31" alt="ghostk.id button">
-            <img src="./images/88x31/chrome.gif" alt="anything but chrome">
-            <img src="./images/88x31/cutesocks.gif" alt="i wear cute socks">
-            <img src="./images/88x31/firefox.gif" alt="tested on firefox">
-            <img src="./images/88x31/made_with_windows.gif" alt="made with windows">
-            <img src="./images/88x31/right-to-repair.jpg" alt="i believe in right to repair">
-            <img src="./images/88x31/roly-saynotoweb3.gif" alt="say no to web3, keep the web free">
-            <img src="./images/88x31/site_best_viewed_with_monitor.gif" alt="site best viewed with a monitor">
-            <img src="./images/88x31/transrightsnow.png" alt="trans rights NOW!">
-        </p>
-        <p>
-            <img src="./images/blinkies/0023-trans-pride.gif" alt="transpride">
-            <img style="height: 20px;" src="./images/blinkies/0269-sickashell.gif" alt="sickashell">
-            <img style="height: 20px;" src="./images/blinkies/0271-chronicmigraines.gif" alt="chronicmigraines">
-            <img src="./images/blinkies/F3MmJiwcqS.gif" alt="windows cmdline">
-        </p>
-        <p>
-            <img src="./images/stamps/3119e27d.gif" alt="">
-            <img src="./images/stamps/62918e60.gif" alt="">
-            <img src="./images/stamps/musedash.gif" alt="">
-            <img src="./images/stamps/musedash1.gif" alt="">
-            <img src="./images/stamps/p92i1H1y8ua8do4-100.gif" alt="">
-            <img src="./images/stamps/slut.gif" alt="">
-        </p>
-    </footer>
-</body>
+    </body>
 </html>

@@ -1,150 +1,98 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const inputField = document.querySelector('.cli-input');
+    const history = document.getElementById('history');
 
-    // ------------------ Tree Rendering ------------------
-    function renderTree(parentId, childrenId) {
-        const parentLi = document.getElementById(parentId);
-        const childrenUl = document.getElementById(childrenId);
-        if (!parentLi || !childrenUl) return;
-
-        childrenUl.style.display = "none";
-
-        const container = document.createElement("ul");
-        container.style.listStyle = "none";
-        container.style.paddingLeft = "0";
-        container.style.margin = "0";
-
-        const items = Array.from(childrenUl.children);
-
-        items.forEach((li, index) => {
-            const childLi = document.createElement("li");
-            const isLast = index === items.length - 1;
-            const symbol = isLast ? "┖ " : "┠ ";
-
-            if (li.getAttribute("onclick")) {
-                childLi.setAttribute("onclick", li.getAttribute("onclick"));
-            }
-
-            childLi.append(symbol);
-
-            for (const node of Array.from(li.childNodes)) {
-                childLi.append(node.cloneNode(true));
-            }
-
-            container.appendChild(childLi);
-        });
-
-        parentLi.after(container);
-
-        parentLi.style.cursor = "pointer";
-        parentLi.addEventListener("click", () => {
-            parentLi.style.background =
-                parentLi.style.background === "lightblue" ? "" : "lightblue";
-        });
-
-        container.style.display = "block";
-    }
-
-    renderTree("me-parent", "me-children");
-    renderTree("site-parent", "site-children");
-    renderTree("links-parent", "links-children");
-
-    // ------------------ Stretching Function ------------------
-    function stretchToTallest() {
-        const aside = document.querySelector('aside');
-        const main = document.querySelector('main');
-        const sidebar = document.querySelector('.sidebar');
-
-        // reset height first
-        aside.style.height = 'auto';
-        main.style.height = 'auto';
-        sidebar.style.height = 'auto';
-
-        // find tallest
-        const maxHeight = Math.max(
-            aside.offsetHeight,
-            main.offsetHeight,
-            sidebar.offsetHeight
-        );
-
-        // apply tallest height
-        aside.style.height = maxHeight + 'px';
-        main.style.height = maxHeight + 'px';
-        sidebar.style.height = maxHeight + 'px';
-    }
-
-    // Run once after tree renders
-    stretchToTallest();
-
-    // ------------------ Periodic Stretching ------------------
-    // Keep heights in sync in case Lanyard/Clock changes sidebar height
-    setInterval(stretchToTallest, 500);
-    window.addEventListener('resize', stretchToTallest);
-});
-
-// ------------------ Lanyard & Clock Code (unchanged) ------------------
-const DISCORD_ID = "1393281918526558288";  
-const LASTFM_CACHE_KEY = "last_listened_song";
-
-const el = {
-    status: document.querySelector(".status span:nth-of-type(2)"),
-    feeling: document.querySelector(".feeling span:nth-of-type(2)"),
-    playing: document.querySelector(".playing span:nth-of-type(2)"),
-    watching: document.querySelector(".watching span:nth-of-type(2)"),
-    reading: document.querySelector(".reading span:nth-of-type(2)"),
-    listening: document.querySelector(".listening span:nth-of-type(2)"),
-    myTime: document.querySelector(".mytime span:nth-of-type(2)"),
-    yourTime: document.querySelector(".mytime span:nth-of-type(4)")
-};
-
-async function fetchLanyard() {
-    try {
-        const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
-        const json = await res.json();
-        const info = json.data;
-
-        el.status.textContent = info.discord_status;
-
-        const customStatus = info.activities.find(a => a.type === 4);
-        el.feeling.textContent = customStatus?.state || "none";
-
-        const playing = info.activities.find(a => a.type === 0);
-        el.playing.textContent = playing?.name || "nothing";
-
-        const watching = info.activities.find(a => a.type === 3);
-        el.watching.textContent = watching?.name || "nothing";
-
-        const reading = info.activities.find(a => a.state && a.name === "Reading");
-        el.reading.textContent = reading?.state || "nothing";
-
-        if (info.spotify) {
-            const track = `${info.spotify.song} – ${info.spotify.artist}`;
-            el.listening.textContent = track;
-            localStorage.setItem(LASTFM_CACHE_KEY, track);
-        } else {
-            el.listening.textContent = localStorage.getItem(LASTFM_CACHE_KEY) || "nothing";
+    async function streamText(text, targetElement = null) {
+        if (!text) return;
+        const wordSpeed = 60;
+        
+        if (!targetElement) {
+            targetElement = document.createElement('p');
+            targetElement.classList.add('cli');
+            history.appendChild(targetElement);
         }
 
-    } catch (err) {
-        console.error("Lanyard fetch error:", err);
+        const words = text.split(" ");
+        targetElement.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;> "; 
+
+        for (const word of words) {
+            targetElement.innerHTML += word + " ";
+            await new Promise(resolve => setTimeout(resolve, wordSpeed));
+        }
     }
-}
 
-function updateClock() {
-    const chicago = new Date().toLocaleString("en-US", {
-        timeZone: "America/Chicago",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
+    inputField.addEventListener('keypress', async (e) => {
+        if (e.key === 'Enter') {
+            const command = inputField.value.toLowerCase().trim();
+            inputField.value = '';
+            
+            if (command === '') return;
+
+            const cmdLine = document.createElement('p');
+            cmdLine.classList.add('cli');
+            cmdLine.innerHTML = `&nbsp;&nbsp;&nbsp;sam@cloud:~$ ${command}`;
+            history.appendChild(cmdLine);
+
+            if (command === 'clear') {
+                history.innerHTML = '';
+                return;
+            }
+
+            if (command === 'neofetch') {
+                const neoContainer = document.createElement('div');
+                neoContainer.className = 'neofetch-container';
+                
+                const logoHtml = `⠀⠀⠀⣤⣴⣾⣿⣿⣿⣿⣿⣶⡄⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⣠⡄
+⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⢰⣦⣄⣀⣀⣠⣴⣾⣿⠃
+⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⠀
+⠀⠀⣼⣿⡿⠿⠛⠻⠿⣿⣿⡇⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀
+⠀⠀⠉⠀⠀⠀⢀⠀⠀⠀⠈⠁⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀
+⠀⠀⣠⣴⣶⣿⣿⣿⣷⣶⣤⠀⠀⠀⠈⠉⠛⠛⠛⠉⠉⠀⠀⠀
+⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⣶⣦⣄⣀⣀⣀⣤⣤⣶⠀⠀
+⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀
+⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀
+⢠⣿⡿⠿⠛⠉⠉⠉⠛⠿⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠀
+⠘⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⢿⣿⣿⣿⣿⣿⠿⠛⠀⠀⠀`;
+                
+                const specsHtml = `<span style="color: #00adef">OS:</span> Windows 10 Pro\n<span style="color: #00adef">CPU:</span> Intel Core I3-6100\n<span style="color: #00adef">RAM:</span> 8GB DDR4 2133MHz\n<span style="color: #00adef">DISK:</span> TOSHIBA MQ01ABD100\n<span style="color: #00adef">NET:</span> 192.168.0.3\n<span style="color: #00adef">GPU:</span> Intel HD Graphics 530`;
+
+                neoContainer.innerHTML = `
+                    <pre class="ascii-logo">${logoHtml}</pre>
+                    <div class="specs">${specsHtml}</div>
+                `;
+                
+                history.appendChild(neoContainer);
+            } else {
+                let response = '';
+                switch (command) {
+                    case 'help':
+                    case 'commands':
+                        response = 'available: [about, social, neofetch, discord, clear]';
+                        break;
+                    case 'about':
+                        response = 'I am a front-end web developer, I own this and orbitt.sbs I make many projects (available on my github)';
+                        break;
+                    case 'social':
+                        response = 'find me on github: @samsucksatcoding';
+                        break;
+                    case 'discord':
+                        response = 'Opening Discord invite...';
+                        window.open('https://discord.gg/nj5eqhWqbm', '_blank');
+                        break;
+                    default:
+                        response = `command not found: ${command}`;
+                }
+                await streamText(response);
+            }
+            
+            inputField.scrollIntoView({ behavior: 'smooth' });
+        }
     });
-    el.myTime.textContent = chicago;
 
-    const visitor = new Date().toLocaleTimeString();
-    el.yourTime.textContent = visitor;
-}
-
-// ------------------ Intervals ------------------
-setInterval(fetchLanyard, 1000);
-setInterval(updateClock, 1000);
-
-fetchLanyard();
-updateClock();
+    async function start() {
+        await streamText("welcome to my corner of the internet", document.getElementById('typewriter-1'));
+        await streamText("i don't even know anymore", document.getElementById('typewriter-2'));
+    }
+    
+    start();
+});
