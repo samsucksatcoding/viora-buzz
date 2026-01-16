@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 ⢠⣿⡿⠿⠛⠉⠉⠉⠛⠿⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠀
 ⠘⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⢿⣿⣿⣿⣿⣿⠿⠛⠀⠀⠀`;
                 
-                const specsHtml = `<span style="color: #00adef">OS:</span> Windows 10 Pro\n<span style="color: #00adef">CPU:</span> Intel Core I3-6100\n<span style="color: #00adef">RAM:</span> 8GB DDR4 2133MHz\n<span style="color: #00adef">DISK:</span> TOSHIBA MQ01ABD100\n<span style="color: #00adef">NET:</span> 192.168.0.3\n<span style="color: #00adef">GPU:</span> Intel HD Graphics 530`;
+                const specsHtml = `<span style="color: #00adef">OS:</span> Windows 10 IOT LTSC\n<span style="color: #00adef">CPU:</span> Intel Core I3-6700\n<span style="color: #00adef">RAM:</span> 20GB DDR4 2133MHz\n<span style="color: #00adef">DISK:</span> TOSHIBA MQ01ABD100\n<span style="color: #00adef">NET:</span> 192.168.0.22\n<span style="color: #00adef">GPU:</span> Intel HD Graphics 530`;
 
                 neoContainer.innerHTML = `
                     <pre class="ascii-logo">${logoHtml}</pre>
