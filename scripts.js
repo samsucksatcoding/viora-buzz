@@ -109,7 +109,7 @@ setInterval(updatePresence, 5000);
 (function(){
     // Pick a random background once per tab
     if(!sessionStorage.getItem("bgIndex")){
-        let index = Math.floor(Math.random() * 10) + 1;
+        let index = Math.floor(Math.random() * 9) + 1;
         sessionStorage.setItem("bgIndex", index);
     }
 
