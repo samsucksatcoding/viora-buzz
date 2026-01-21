@@ -1,27 +1,70 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
-        <title>Sam</title>
+        <title>sam</title>
+        <link rel="manifest" href="/manifest.json">
+        <meta name="theme-color" content="#000000">
         <link rel="stylesheet" href="style.css">
-        <script defer src="./scripts.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <script defer src="scripts.js"></script>
+        <script defer src="bannedips.js"></script>
+        <script src="https://kit.fontawesome.com/2659a061ac.js" crossorigin="anonymous"></script>
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="sam | Developer, Designer, Tech Geek">
+        <meta property="og:description" content="I'm a full-stack web developer, graphic designer, plane geek, and history nerd.">
+        <meta property="og:url" content="index.html">
+        <meta property="og:image" content="/images/og-image.png">
+        <meta property="og:site_name" content="Lumen">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="sam | Developer, Designer, Tech Geek">
+        <meta name="twitter:description" content="I'm a full-stack web developer, graphic designer, plane geek, and history nerd.">
+        <meta name="twitter:image" content="/images/og-image.png">
     </head>
     <body>
-        <div class="console">
-            <p class="cli">sam@cloud:~$ rockstar ;3.md</p>
-
-            <div id="history">
-                <p class="cli" id="typewriter-1"></p>
-                <p class="cli" id="typewriter-2"></p>
+        <nav>
+            <a href="./index.html">Home</a>
+            <a href="./resources.html">Resources</a>
+            <a href="./portfolio.html">Portfolio</a>
+            <a href="./poetry.html">Poetry</a>
+        </nav>
+        <div class="card">
+            <div class="inner-card-1">
+                <div class="pfpcont">
+                    <img id="pfp" src="./images/throbber.gif" alt="Profile Picture">
+                    <i class="fa-solid fa-circle discordstatus"></i>
+                    <h2 id="username">Loading...</h2>
+                    <p class="discordthoughtbubble">Loading...</p>
+                </div>
             </div>
-        
-            <div class="input-line">
-                <p class="cli">
-                    &nbsp;&nbsp;&nbsp;sam@cloud:~$
-                    <input type="text" class="cli-input" autofocus spellcheck="false" placeholder="...">
-                </p>
-            </div>
+        </div>
+        <div class="card">
+            <div class="activity-wrapper">
+    	        <div class="activity-images">
+                    <img id="activity-big-image" src="images/throbber.gif" alt="">
+    	            <img class="activity-small-image" src="images/throbber.gif" alt="">
+                </div>
 
-            <p class="cli" style="opacity: 0.5; font-size: 0.8em;">&nbsp;&nbsp;&nbsp;type "help" for commands</p>
+                <div class="activity-info">
+    	            <div id="activity-name">Loading...</div>
+                    <div id="activity-state">Loading...</div>
+                    <div id="activity-detail">Loading...</div>
+                </div>
+            </div>
+        </div>
+        <div class="card spotify-card hidden">
+            <div class="spotify-wrapper">
+                <div class="spotify-images">
+                    <img class="spotify-album-art" src="images/throbber.gif" alt="">
+                    <img class="spotify-icon" src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="">
+                </div>
+                <div class="spotify-info">
+                    <div class="spotify-track">Loading...</div>
+                    <div class="spotify-artist"></div>
+                    <div class="spotify-album"></div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

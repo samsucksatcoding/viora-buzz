@@ -1,0 +1,70 @@
+body,html{
+    margin: 0;
+    padding: 0;
+    font-family: "Ubuntu Mono", monospace;
+    background-color: #121212;
+    color: #e0e0e0;
+    line-height: 1.4;
+}
+.card{
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+}
+.title h1{
+    margin: 0;
+    font-size: 2rem;
+    color: #bb86fc;
+}
+.title h3{
+    margin: 5px 0 15px 0;
+    font-size: 1rem;
+    color: #c0c0c0;
+}
+.poem{
+    margin-bottom: 25px;
+}
+.poem p{
+    margin: 0 0 15px 0;
+    font-size: 1rem;
+    color: #e0e0e0;
+}
+.poem p br{
+    line-height: 1.4;
+}
+.message{
+    border-top: 1px solid #333;
+    padding-top: 15px;
+}
+.message p{
+    margin: 0 0 15px 0;
+    font-size: 1rem;
+    color: #e0e0e0;
+}
+.message p br{
+    line-height: 1.4;
+}
+a{
+    color: #bb86fc;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+@media(max-width:600px){
+    .card{
+        margin: 10px;
+        padding: 15px;
+    }
+    .title h1{
+        font-size: 1.5rem;
+    }
+    .title h3{
+        font-size: 0.9rem;
+    }
+    .poem p,.message p{
+        font-size: 0.95rem;
+    }
+}

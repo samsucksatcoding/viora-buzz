@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+Sitemap: https://viora.buzz/sitemap.xml
+Crawl-delay: 20

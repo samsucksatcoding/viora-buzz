@@ -1,98 +1,156 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const inputField = document.querySelector('.cli-input');
-    const history = document.getElementById('history');
+const USER_ID = "1393281918526558288";
+const API_URL = `https://api.lanyard.rest/v1/users/${USER_ID}`;
+const FALLBACK_PFP = "./images/throbber.gif";
 
-    async function streamText(text, targetElement = null) {
-        if (!text) return;
-        const wordSpeed = 60;
-        
-        if (!targetElement) {
-            targetElement = document.createElement('p');
-            targetElement.classList.add('cli');
-            history.appendChild(targetElement);
-        }
+const STATUS_COLORS = {
+    online:"#43b581",
+    idle:"#faa61a",
+    dnd:"#f04747",
+    offline:"#747f8d"
+};
 
-        const words = text.split(" ");
-        targetElement.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;> "; 
+function updatePresence(){
+    fetch(API_URL)
+        .then(r => r.json())
+        .then(j => {
+            if (!j.success) return;
+            const d = j.data;
 
-        for (const word of words) {
-            targetElement.innerHTML += word + " ";
-            await new Promise(resolve => setTimeout(resolve, wordSpeed));
-        }
-    }
+            const pfp = document.getElementById("pfp");
+            pfp.onerror = () => pfp.src = FALLBACK_PFP;
+            pfp.src = d.discord_user.avatar
+                ? `https://cdn.discordapp.com/avatars/${USER_ID}/${d.discord_user.avatar}.png?size=256`
+                : FALLBACK_PFP;
 
-    inputField.addEventListener('keypress', async (e) => {
-        if (e.key === 'Enter') {
-            const command = inputField.value.toLowerCase().trim();
-            inputField.value = '';
-            
-            if (command === '') return;
+            document.getElementById("username").textContent = d.discord_user.username;
 
-            const cmdLine = document.createElement('p');
-            cmdLine.classList.add('cli');
-            cmdLine.innerHTML = `&nbsp;&nbsp;&nbsp;sam@cloud:~$ ${command}`;
-            history.appendChild(cmdLine);
+            const status = d.discord_status || "offline";
+            const icon = document.querySelector(".discordstatus");
+            const color = STATUS_COLORS[status];
+            icon.style.color = color;
+            icon.style.backgroundColor = color;
 
-            if (command === 'clear') {
-                history.innerHTML = '';
-                return;
-            }
+            const thought = document.querySelector(".discordthoughtbubble");
+            const custom = d.activities.find(a => a.type === 4);
 
-            if (command === 'neofetch') {
-                const neoContainer = document.createElement('div');
-                neoContainer.className = 'neofetch-container';
-                
-                const logoHtml = `⠀⠀⠀⣤⣴⣾⣿⣿⣿⣿⣿⣶⡄⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⣠⡄
-⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⢰⣦⣄⣀⣀⣠⣴⣾⣿⠃
-⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⠀
-⠀⠀⣼⣿⡿⠿⠛⠻⠿⣿⣿⡇⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀
-⠀⠀⠉⠀⠀⠀⢀⠀⠀⠀⠈⠁⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀
-⠀⠀⣠⣴⣶⣿⣿⣿⣷⣶⣤⠀⠀⠀⠈⠉⠛⠛⠛⠉⠉⠀⠀⠀
-⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⣶⣦⣄⣀⣀⣀⣤⣤⣶⠀⠀
-⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀
-⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀
-⢠⣿⡿⠿⠛⠉⠉⠉⠛⠿⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠀
-⠘⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⢿⣿⣿⣿⣿⣿⠿⠛⠀⠀⠀`;
-                
-                const specsHtml = `<span style="color: #00adef">OS:</span> Windows 10 IOT LTSC\n<span style="color: #00adef">CPU:</span> Intel Core I3-6700\n<span style="color: #00adef">RAM:</span> 20GB DDR4 2133MHz\n<span style="color: #00adef">DISK:</span> TOSHIBA MQ01ABD100\n<span style="color: #00adef">NET:</span> 192.168.0.22\n<span style="color: #00adef">GPU:</span> Intel HD Graphics 530`;
+            if (custom && (custom.state || custom.emoji)) {
+                let emoji = "";
 
-                neoContainer.innerHTML = `
-                    <pre class="ascii-logo">${logoHtml}</pre>
-                    <div class="specs">${specsHtml}</div>
-                `;
-                
-                history.appendChild(neoContainer);
-            } else {
-                let response = '';
-                switch (command) {
-                    case 'help':
-                    case 'commands':
-                        response = 'available: [about, social, neofetch, discord, clear]';
-                        break;
-                    case 'about':
-                        response = 'I am a front-end web developer, I own this and orbitt.sbs I make many projects (available on my github)';
-                        break;
-                    case 'social':
-                        response = 'find me on github: @samsucksatcoding';
-                        break;
-                    case 'discord':
-                        response = 'Opening Discord invite...';
-                        window.open('https://discord.gg/nj5eqhWqbm', '_blank');
-                        break;
-                    default:
-                        response = `command not found: ${command}`;
+                if (custom.emoji) {
+                    if (custom.emoji.id) {
+                        emoji = `<img src="https://cdn.discordapp.com/emojis/${custom.emoji.id}.png" style="height:1em;vertical-align:-0.15em;"> `;
+                    } else {
+                        emoji = `${custom.emoji.name} `;
+                    }
                 }
-                await streamText(response);
-            }
-            
-            inputField.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
 
-    async function start() {
-        await streamText("welcome to my corner of the internet", document.getElementById('typewriter-1'));
-        await streamText("i don't even know anymore", document.getElementById('typewriter-2'));
+                thought.innerHTML = emoji + (custom.state || "");
+                thought.style.display = "block";
+            } else {
+                thought.style.display = "none";
+            }
+
+            const gName = document.getElementById("activity-name");
+            const gState = document.getElementById("activity-state");
+            const gDetail = document.getElementById("activity-detail");
+            const gBig = document.getElementById("activity-big-image");
+            const gSmall = document.querySelector(".activity-small-image");
+
+            const game = d.activities.find(a => a.type === 0) || null;
+
+            if (game) {
+                gName.textContent = game.name || "";
+                gState.textContent = game.state || "";
+                gDetail.textContent = game.details || "";
+
+                if (game.assets?.large_image) {
+                    gBig.src = game.assets.large_image.startsWith("mp:")
+                        ? `https://media.discordapp.net/${game.assets.large_image.replace("mp:","")}`
+                        : `https://cdn.discordapp.com/app-assets/${game.application_id}/${game.assets.large_image}.png`;
+                } else {
+                    gBig.src = "images/throbber.gif";
+                }
+
+                if (game.assets?.small_image) {
+                    gSmall.src = game.assets.small_image.startsWith("mp:")
+                        ? `https://media.discordapp.net/${game.assets.small_image.replace("mp:","")}`
+                        : `https://cdn.discordapp.com/app-assets/${game.application_id}/${game.assets.small_image}.png`;
+                    gSmall.style.display = "block";
+                } else {
+                    gSmall.style.display = "none";
+                }
+            } else {
+                gName.textContent = "No activity";
+                gState.textContent = "";
+                gDetail.textContent = "";
+                gBig.src = "images/throbber.gif";
+                gSmall.style.display = "none";
+            }
+
+            const sCard = document.querySelector(".spotify-card");
+
+            if (d.spotify && d.spotify.song) {
+                sCard.classList.remove("hidden");
+                sCard.querySelector(".spotify-track").textContent = d.spotify.song;
+                sCard.querySelector(".spotify-artist").textContent = d.spotify.artist;
+                sCard.querySelector(".spotify-album").textContent = d.spotify.album;
+                sCard.querySelector(".spotify-album-art").src = d.spotify.album_art_url;
+            } else {
+                sCard.classList.add("hidden");
+            }
+        })
+        .catch(() => {
+            document.getElementById("pfp").src = FALLBACK_PFP;
+        });
+}
+
+updatePresence();
+setInterval(updatePresence, 5000);
+(function(){
+    // Pick a random background once per tab
+    if(!sessionStorage.getItem("bgIndex")){
+        let index = Math.floor(Math.random() * 10) + 1;
+        sessionStorage.setItem("bgIndex", index);
     }
-    
-    start();
-});
+
+    const bgIndex = sessionStorage.getItem("bgIndex");
+    const bgUrl = `/images/background-${bgIndex}.png`;
+
+    const img = new Image();
+    img.src = bgUrl;
+
+    img.onload = function(){
+        // Set the background image
+        document.body.style.backgroundImage = `url('${bgUrl}')`;
+
+        // Analyze brightness
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        const data = ctx.getImageData(0, 0, img.width, img.height).data;
+
+        let r, g, b, brightness;
+        let totalBrightness = 0;
+        const sampleStep = 4 * 1000;
+
+        for(let i=0; i<data.length; i+=sampleStep){
+            r = data[i];
+            g = data[i+1];
+            b = data[i+2];
+            brightness = (r*0.299 + g*0.587 + b*0.114);
+            totalBrightness += brightness;
+        }
+
+        const avgBrightness = totalBrightness / (data.length / sampleStep);
+
+        // Dim overlay if the image is bright
+        if(avgBrightness > 127){
+            const overlay = document.getElementById("background-overlay");
+            if(overlay){
+                overlay.style.backgroundColor = "rgba(0,0,0,0.5)"; // 50% dark
+            }
+        }
+    }
+})();
